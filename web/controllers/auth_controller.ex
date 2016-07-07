@@ -28,7 +28,7 @@ defmodule PestServer.AuthController do
       {:ok, char_details} -> user = %UserDetails{
                               id: char_details["CharacterID"],
                               name: char_details["CharacterName"]}
-                     PestServer.Client.logged(id)
+                     PestServer.Client.logged(id, user)
                      conn
                      |> put_flash(:info, char_details["CharacterName"]<>" logged in succesfully")
       {:error, _reason} -> conn
