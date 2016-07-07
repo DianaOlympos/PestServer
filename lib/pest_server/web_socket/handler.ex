@@ -11,7 +11,7 @@ defmodule PestServer.WebSocket.Handler do
   def websocket_init(_type, req, _opts) do
     id = UUID.uuid4()
     {:ok, pid} = Supervisor.start_child(
-                            Client.Supervisor,
+                            PestServer.Client.Supervisor,
                             [self(), id])
     Process.link(pid)
     {:ok, req, id, @timeout}
