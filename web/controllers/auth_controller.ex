@@ -15,7 +15,11 @@ defmodule PestServer.AuthController do
 
     conn
     |> authenticate_char(token, id)
-    |> redirect(to: "/success")
+    |> redirect(to: "/auth/success")
+  end
+
+  def success(conn, _params) do
+    text conn, "Success"
   end
 
   defp authenticate_char(conn, token, id) do
@@ -24,15 +28,11 @@ defmodule PestServer.AuthController do
       {:ok, char_details} -> user = %UserDetails{
                               id: char_details["CharacterID"],
                               name: char_details["CharacterName"]}
-                     PestServer.Client.logged(name(id))
+                     PestServer.Client.logged(id)
                      conn
                      |> put_flash(:info, char_details["CharacterName"]<>" logged in succesfully")
       {:error, _reason} -> conn
                           |> put_flash(:info, "An error happened during your authentication")
     end
-  end
-
-  defp name(id) do
-    {:via, :gproc, {:n, :l, {:ws, id}}}
   end
 end

@@ -1,13 +1,24 @@
 defmodule PestServer.Router do
   use PestServer.Web, :router
+  alias PestServer.AuthController
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
+
   scope "/auth" do
+    pipe_through :browser
     get "/", AuthController, :index
     get "/callback", AuthController, :callback
+    get "/success", AuthController, :success
   end
 
   scope "/api", PestServer do
