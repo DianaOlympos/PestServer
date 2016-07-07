@@ -24,7 +24,7 @@ defmodule PestServer.WebSocket.Handler do
 
   # Handle other messages from the client - do not reply
   def websocket_handle({:binary, message}, req, id) do
-    PestServer.Client.message(name(id), message)
+    PestServer.Client.message(id, message)
     {:ok, req, id}
   end
 
@@ -37,9 +37,5 @@ defmodule PestServer.WebSocket.Handler do
   def websocket_terminate(_reason, _req, id) do
     PestServer.Client.kill(id, :shutdown)
     :ok
-  end
-
-  defp name(id) do
-    {:via, :gproc, {:n, :l, {:ws, id}}}
   end
 end
