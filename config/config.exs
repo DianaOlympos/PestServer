@@ -13,11 +13,11 @@ config :pest_server, PestServer.Endpoint,
                 {"/ws", PestServer.WebSocket.Handler, []},
                 {:_, Plug.Adapters.Cowboy.Handler, {PestServer.Endpoint, []}}
                 ]}]],
-  https: [dispatch: [
-          {:_, [
-                {"/ws", PestServer.WebSocket.Handler, []},
-                {:_, Plug.Adapters.Cowboy.Handler, {PestServer.Endpoint, []}}
-                ]}]],
+  # https: [dispatch: [
+  #         {:_, [
+  #               {"/ws", PestServer.WebSocket.Handler, []},
+  #               {:_, Plug.Adapters.Cowboy.Handler, {PestServer.Endpoint, []}}
+  #               ]}]],
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "N/05cpUX7clGHgC/MA2aVPa34AMZEUTZCKGKPHn7CaGN/TJ6WKgwOZfQmsmkkyET",
