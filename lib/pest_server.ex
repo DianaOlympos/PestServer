@@ -11,6 +11,7 @@ defmodule PestServer do
       supervisor(PestServer.Endpoint, []),
       # Here you could define other workers and supervisors as children
       # worker(PestServer.Worker, [arg1, arg2, arg3]),
+      supervisor(PestServer.Client.Supervisor, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
